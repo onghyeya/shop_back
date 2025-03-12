@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<!-- BOOK, BOOK_CATEGORY 테이블 관련 쿼리는 여기서만 작성-->
+<mapper namespace="com.green.book_shop.book.mapper.BookMapper">
+
+    <resultMap id="book" type="BookDTO">
+        <id column="BOOK_CODE" property="bookCode"/>
+        <result column="BOOK_NAME" property="bookName"/>
+        <result column="BOOK_PRICE" property="bookPrice"/>
+        <result column="PUBLISHER" property="publisher"/>
+        <result column="BOOK_INFO" property="bookInfo"/>
+        <result column="REG_DATE" property="regDate"/>
+        <result column="BOOK_STOCK" property="bookStock"/>
+        <result column="CATE_CODE" property="cateCode"/>
+    </resultMap>
+
+    <resultMap id="category" type="BookCategoryDTO">
+        <id column="CATE_CODE" property="cateCode"/>
+        <result column="CATE_NAME" property="cateName"/>
+    </resultMap>
+
+    <!-- 도서 등록 -->
+	<insert id="insertBook">
+        INSERT INTO BOOK (
+            BOOK_NAME
+            , BOOK_PRICE
+            , PUBLISHER
+            , BOOK_INFO
+            , BOOK_STOCK
+            , CATE_CODE
+        )
+        VALUES(
+            #{bookName}
+            , #{bookPrice}
+            , #{publisher}
+            , #{bookInfo}
+            , #{bookStock}
+            , #{cateCode}
+        )
+    </insert>
+
+    <!-- 카테고리 목록 조회 -->
+    <select id="selectCategoryList" resultMap="category">
+        SELECT CATE_CODE, CATE_NAME
+        FROM BOOK_CATEGORY
+        ORDER BY CATE_CODE
+    </select>
+
+    <!-- 카테고리 중복 확인 -->
+    <!-- 조회 결과 있음 >  사용 불가 -->
+    <!-- 조회 결과 없음 >  사용 가능 -->
+    <select id="UsableCateName" resultType="String">
+        SELECT CATE_NAME
+        FROM BOOK_CATEGORY
+        WHERE CATE_NAME = #{cateName}
+    </select>
+
+    <!-- 카테고리 등록 -->
+    <insert id="insertCate">
+        INSERT INTO BOOK_CATEGORY (
+            CATE_NAME
+        ) VALUES (
+            #{cateName}
+        )
+    </insert>
+
+    <!-- 카테고리 수정 -->
+    <update id="updateCate">
+        UPDATE BOOK_CATEGORY
+        SET
+        CATE_NAME = #{cateName}
+        WHERE CATE_CODE = #{cateCode}
+    </update>
+
+    <!-- 카테고리 삭제 -->
+    <delete id="delCate">
+        DELETE FROM BOOK_CATEGORY
+        WHERE CATE_CODE = #{cateCode}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

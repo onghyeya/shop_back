@@ -16,6 +16,9 @@ public class BookController {
 
   @PostMapping("")
   public void regBook(@RequestBody BookDTO bookDTO){
+    //파일 첨부 기능
+
+    // Book 테이블에 도서 insert 기능
     bookService.insertBook(bookDTO);
   }
 }

@@ -17,4 +17,8 @@ public interface BookService {
   public void updateCate(BookCategoryDTO bookCategoryDTO);
   // 카테고리 삭제
   public void delCate(int cateCode);
+  // 도서 이미지 등록
+  public void insertImgs(BookDTO bookDTO);
+  // 다음에 들어 갈 BOOK_CODE 조회
+  public int getNextBookCode();
 }

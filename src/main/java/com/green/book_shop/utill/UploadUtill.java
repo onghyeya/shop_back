@@ -17,28 +17,32 @@ public class UploadUtill {
   private String uploadPath;
 
   // 단일 파일 업로드 기능
-  public void fileUpload(MultipartFile file){
+  public String fileUpload(MultipartFile file){
 
-    // 파일을 첨부하지 않았으면
-    if(file==null) return;
+    // 파일을 첨부했을 때만
+    if(file != null){
 
-    // 화면에서 선택한 원본 파일명
-    String originFileName = file.getOriginalFilename();
+      // 화면에서 선택한 원본 파일명
+      String originFileName = file.getOriginalFilename();
 
-    // 첨부할 파일명
-    String attachedFileName = getAttachedFileName(originFileName);
+      // 첨부할 파일명
+      String attachedFileName = getAttachedFileName(originFileName);
 
-    // 업로드 경로 + 파일명 연결
-    File f = new File( uploadPath + attachedFileName);
+      // 업로드 경로 + 파일명 연결
+      File f = new File( uploadPath + attachedFileName);
 
-    // 예외 처리 try,catch,finally
-    try {
-      // 파일 첨부 실행코드
-      // 첨부한 파일(file)을 실제 업로드 할 경로(f)로 옮긴다
-      file.transferTo(f);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+      // 예외 처리 try,catch,finally
+      try {
+        // 파일 첨부 실행코드
+        // 첨부한 파일(file)을 실제 업로드 할 경로(f)로 옮긴다
+        file.transferTo(f);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+
+      return attachedFileName;
     }
+    return null;
 
   }
 

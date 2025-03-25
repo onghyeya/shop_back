@@ -47,5 +47,16 @@ public class BookServiceImpl implements BookService{
     bookMapper.delCate(cateCode);
   }
 
-  
+  @Override
+  public void insertImgs(BookDTO bookDTO) {
+    bookMapper.insertImgs(bookDTO);
+  }
+
+  // 다음에 들어 갈 BOOK_CODE 조회
+  @Override
+  public int getNextBookCode() {
+    return bookMapper.getNextBookCode();
+  }
+
+
 }
